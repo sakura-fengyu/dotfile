@@ -44,11 +44,12 @@ return {
 
 	-- A high-performance color highlighter
 	{
-		"atgoose/nvim-colorizer.lua",
+		-- "atgoose/nvim-colorizer.lua",
+		"norcalli/nvim-colorizer.lua",
 		event = { "VeryLazy" },
-		opts = {
-			lazy_load = true,
-		},
+		confit = function()
+			require 'colorzer'.setup()
+		end
 	},
 
 	-- 行、块移动
