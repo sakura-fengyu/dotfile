@@ -1,0 +1,61 @@
+[general]
+import = [
+	# uncomment the flavour you want below:
+	# "~/.config/alacritty/themes/catppuccin-latte.toml",
+	# "~/.config/alacritty/themes/catppuccin-frappe.toml"
+	# "~/.config/alacritty/themes/catppuccin-macchiato.toml"
+	"~/.config/alacritty/themes/catppuccin-mocha.toml",
+]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+dimensions = { columns = 160, lines = 48 }
+position = { x = 280, y = 900 }
+dynamic_padding = true
+decorations = "None"
+opacity = 0.9
+blur = true
+startup_mode = "windowed"
+dynamic_title = true
+option_as_alt = "Both"
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { style = "Bold" }
+italic = { style = "Italic" }
+size = 15.5
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+	# enter vi mode
+	{ key = "Escape", mods = "Shift", action = "ToggleViMode" },
+	{ key = "Space", mods = "Command", action = "ToggleViMode" },
+
+	# Toggle fullscreen
+	{ key = "Enter", mods = "Command", action = "ToggleFullscreen" },
+
+	{ key = "N", mods = "Command|Shift", command = { program = "/opt/homebrew/bin/alacritty", args = [
+		"msg",
+		"create-window",
+		"-e",
+		"/bin/zsh",
+		"--login",
+		"-c",
+		"tmux new-session",
+	] } }, # open session in new window with all sessions menu across servers
+
+]
+
+[terminal]
+[terminal.shell]
+program = "/bin/zsh"
+args = [
+	"--login",
+	"-c",
+	"tmux new-session -A -D -s main -f ~/.config/tmux/tmux.conf",
+]

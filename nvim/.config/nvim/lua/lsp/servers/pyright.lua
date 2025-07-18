@@ -20,7 +20,7 @@ local function set_python_path(path)
 	end
 end
 
-return {
+local pyright_config = {
 	cmd = { 'pyright-langserver', '--stdio' },
 	filetypes = { 'python' },
 	root_markers = {
@@ -56,4 +56,9 @@ return {
 			complete = 'file',
 		})
 	end,
+}
+
+return {
+	vim.lsp.config("pyright", pyright_config),
+	vim.lsp.enable("pyright")
 }

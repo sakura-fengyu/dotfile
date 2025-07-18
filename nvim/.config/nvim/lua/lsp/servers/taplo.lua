@@ -8,8 +8,13 @@
 --- ```sh
 --- cargo install --features lsp --locked taplo-cli
 --- ```
-return {
+local taplo_config = {
 	cmd = { 'taplo', 'lsp', 'stdio' },
 	filetypes = { 'toml' },
 	root_markers = { '.taplo.toml', 'taplo.toml', '.git' },
+}
+
+return {
+	vim.lsp.config("taplo", taplo_config),
+	vim.lsp.enable("taplo")
 }

@@ -1,8 +1,11 @@
 return {
-	{
-		"mason-org/mason.nvim",
-		event = { "BufReadPost", "BufNewFile", "VimEnter" },
-		opts = {
+	"williamboman/mason-lspconfig.nvim",
+	lazy = false,
+	dependencies = {
+		{ "williamboman/mason.nvim", build = ":MasonUpdate", },
+	},
+	config = function()
+		require("mason").setup({
 			ui = {
 				icons = {
 					package_installed = "✓",
@@ -10,29 +13,6 @@ return {
 					package_uninstalled = "✗"
 				}
 			}
-		},
-	},
-
-	{
-		"mason-org/mason-lspconfig.nvim",
-		dependencies = { "mason-org/mason.nvim" },
-		opts = {
-			ensure_installed = {
-				"lua_ls",
-				"gopls",
-				"pyright",
-				"bashls",
-				"clangd",
-				"cmake",
-				"rust_analyzer",
-				"taplo", -- For TOML files
-				-- "tsserver",
-				-- "html",
-				-- "cssls",
-				-- "jsonls",
-				-- "dockerls",
-				-- "rust_analyzer"
-			}
-		}
-	}
+		})
+	end
 }

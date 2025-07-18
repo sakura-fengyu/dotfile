@@ -1,14 +1,3 @@
--- LSP configuration for Neovim
-vim.lsp.enable 'lua_ls'
-vim.lsp.enable 'gopls'
-vim.lsp.enable 'pyright'
-vim.lsp.enable 'bashls'
-vim.lsp.enable 'clangd'
-vim.lsp.enable 'cmake'
-vim.lsp.enable 'rust_analyzer'
-vim.lsp.enable 'toml'
-
-
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'noinsert' }
 vim.opt.shortmess:append('c')
 
@@ -110,27 +99,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		-- highlight word
-		if client:supports_method("textDocument/documentHighlight") then
-			local autocmd = vim.api.nvim_create_autocmd
-			local augroup = vim.api.nvim_create_augroup('lsp_highlight', { clear = false })
-
-			vim.api.nvim_clear_autocmds({ buffer = event.buf, group = augroup })
-
-			autocmd({ "CursorHold", "CursorHoldI" }, {
-				group = augroup,
-				buffer = event.buf,
-				callback = vim.lsp.buf.document_highlight,
-			})
-
-			autocmd({ "CursorMoved", "CursorMovedI" }, {
-				group = augroup,
-				buffer = event.buf,
-				callback = vim.lsp.buf.clear_references,
-			})
-		end
+		-- if client:supports_method("textDocument/documentHighlight") then
+		-- 	local autocmd = vim.api.nvim_create_autocmd
+		-- 	local augroup = vim.api.nvim_create_augroup('lsp_highlight', { clear = false })
+		--
+		-- 	vim.api.nvim_clear_autocmds({ buffer = event.buf, group = augroup })
+		--
+		-- 	autocmd({ "CursorHold", "CursorHoldI" }, {
+		-- 		group = augroup,
+		-- 		buffer = event.buf,
+		-- 		callback = vim.lsp.buf.document_highlight,
+		-- 	})
+		--
+		-- 	autocmd({ "CursorMoved", "CursorMovedI" }, {
+		-- 		group = augroup,
+		-- 		buffer = event.buf,
+		-- 		callback = vim.lsp.buf.clear_references,
+		-- 	})
+		-- end
 	end,
 })
-
-
-vim.api.nvim_create_user_command("LspInfo", ':checkhealth vim.lsp', {
-	desc = 'Alias to `:checkhealth vim.lsp`', })

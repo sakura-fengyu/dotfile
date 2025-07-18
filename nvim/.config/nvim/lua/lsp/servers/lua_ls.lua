@@ -1,4 +1,4 @@
-return {
+local lua_ls_config = {
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
@@ -24,11 +24,12 @@ return {
 			workspace = {
 				library = {
 					vim.env.VIMRUNTIME,
-					"~/.config/nvim/",
-					"~/.local/share/nvim/lazy/?/?.lua",
+					-- "~/.config/nvim/",
+					"~/dotfile/nvim/.config/nvim",
+					vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
 					-- Depending on the usage, you might want to add additional paths
 					-- here.
-					-- '${3rd}/luv/library'
+					'${3rd}/luv/library'
 					-- '${3rd}/busted/library'
 				},
 				-- Or pull in all of 'runtimepath'.
@@ -46,4 +47,9 @@ return {
 	},
 	cmd = { 'lua-language-server' },
 	filetypes = { 'lua' },
+}
+
+return {
+	vim.lsp.config("lua_ls", lua_ls_config),
+	vim.lsp.enable("lua_ls")
 }

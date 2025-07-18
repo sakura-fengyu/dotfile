@@ -32,7 +32,7 @@ require("lazy").setup({
 	-- 语言服务管理器
 	require("plugins.mason"),
 
-	require("plugins.copilot"),
+	-- require("plugins.copilot"),
 
 	require("plugins.completion"),
 
@@ -48,7 +48,7 @@ require("lazy").setup({
 
 	require("plugins.yank"),
 
-	-- require("config.plugins.treesitter"),
+	require("plugins.treesitter"),
 
 	require("plugins.fun"),
 
@@ -57,4 +57,8 @@ require("lazy").setup({
 	-- require("plugins.lspsaga"),
 
 	require("plugins.toggleterm"),
+
+	require("plugins.notify"),
+
+	require("plugins.snacks"),
 })

@@ -42,6 +42,7 @@ vim.o.listchars = 'tab:|\\ ,trail:▫'
 -- 光标距离窗口边缘至少保留 8 行
 vim.o.scrolloff = 8
 
+vim.o.jumpoptions = "stack"
 
 
 -- ================== 输入与效率 ======================
@@ -65,22 +66,18 @@ vim.o.foldlevel = 99
 vim.o.foldenable = true
 -- 文件打开时默认展开所有折叠 与foldlevel区分：前者是初始状态，后者是手动设置
 vim.o.foldlevelstart = 99
--- 移除自动格式化中的 t（自动换行）和 c（注释对齐）
-vim.o.formatoptions = vim.o.formatoptions:gsub('tc', '')
 -- 新建窗口默认在右侧打开
 vim.o.splitright = true
 -- 新建窗口默认在下方打开
 vim.o.splitbelow = true
 -- 隐藏底部状态栏的模式提示
--- vim.o.showmode = false
+-- vim.o.showmode = true
 -- 搜索时忽略大小写 可被 smartcase 覆盖
 vim.o.ignorecase = true
 -- 如果搜索词含大写字母，则区分大小写 ignorecase 和 smartcase 共同控制搜索灵敏度
 vim.o.smartcase = true
 -- 禁用命令完成时的冗余提示 shortmess 控制信息提示的简洁性
 vim.o.shortmess = vim.o.shortmess .. 'c'
-
-
 
 -- ================== 高级功能 ======================
 -- 实时显示 :substitute 替换效果（使用分割窗口）
@@ -101,31 +98,10 @@ vim.o.updatetime = 100
 vim.o.virtualedit = ''
 
 vim.o.winborder = 'bold'
-vim.diagnostic.config({
-	virtual_text = {
-		prefix = '', -- 使用图标作为前缀
-		spacing = 4, -- 前缀与文本之间的间距
-	},
-	signs = true, -- 启用诊断符号
-	underline = true, -- 启用下划线
-	update_in_insert = false, -- 在插入模式下不更新诊断信息
-})
 
 vim.o.undofile = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo' -- 设置持久化撤销文件目录
 
--- vim.cmd([[
--- silent !mkdir -p $HOME/.config/nvim/tmp/backup
--- silent !mkdir -p $HOME/.config/nvim/tmp/undo
--- "silent !mkdir -p $HOME/.config/nvim/tmp/sessions
--- set backupdir=$HOME/.config/nvim/tmp/backup,.
--- set directory=$HOME/.config/nvim/tmp/backup,.
--- if has('persistent_undo')
--- 	set undofile
--- 	set undodir=$HOME/.config/nvim/tmp/undo,.
--- endif
--- ]])
---
 -- 当打开或新建md文件时 启用拼写检查
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = "*.md", command = "setlocal spell", })
 
@@ -138,24 +114,13 @@ vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "silent! lcd 
 -- 当通过 :term 命令在 Vim 中打开终端（Terminal Buffer）时，自动进入插入模式（Insert Mode），无需手动按 i 键切换
 vim.cmd([[autocmd TermOpen term://* startinsert]])
 
-
--- vim.g.terminal_color_0 到 vim.g.terminal_color_255 是 Neovim/Vim 中用于定义终端模拟器中 256 色（8 位色）颜色映射的全局变量。
--- 每个变量对应一个颜色索引（0-255），通过设置这些变量可以自定义终端的配色。
---
--- 需启用 set termguicolors 以启用真彩色支持
--- vim.g.terminal_color_0  = '#000000'
--- vim.g.terminal_color_1  = '#FF5555'
--- vim.g.terminal_color_2  = '#50FA7B'
--- vim.g.terminal_color_3  = '#F1FA8C'
--- vim.g.terminal_color_4  = '#BD93F9'
--- vim.g.terminal_color_5  = '#FF79C6'
--- vim.g.terminal_color_6  = '#8BE9FD'
--- vim.g.terminal_color_7  = '#BFBFBF'
--- vim.g.terminal_color_8  = '#4D4D4D'
--- vim.g.terminal_color_9  = '#FF6E67'
--- vim.g.terminal_color_10 = '#5AF78E'
--- vim.g.terminal_color_11 = '#F4F99D'
--- vim.g.terminal_color_12 = '#CAA9FA'
--- vim.g.terminal_color_13 = '#FF92D0'
--- vim.g.terminal_color_14 = '#9AEDFE'
---
+-- -=r: 移除“在插入模式下按回车键时，自动为新行添加注释前缀”的功能。
+-- -=o: 移除“使用 o 或 O 命令创建新行时，自动添加当前行的注释前缀”的功能。
+-- -=c: 移除“C 风格注释在回车时自动添加星号和空格”的功能。
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	callback = function()
+		vim.opt.formatoptions:remove({ "c", "r", "o" })
+	end,
+	desc = "Disable New Line Comment"
+})

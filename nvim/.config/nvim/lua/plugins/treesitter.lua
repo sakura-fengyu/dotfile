@@ -16,6 +16,7 @@ return {
 				"vimdoc",
 				"markdown_inline",
 				"markdown",
+				"rust",
 			}
 			require("nvim-treesitter").install(parser_installed)
 

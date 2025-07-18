@@ -16,8 +16,8 @@ return {
 				-- nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
 				default_mappings = False, -- UnBind default mappings
 				debug = false, -- Print debug information
-				width = 120, -- Width of the floating window
-				height = 15, -- Height of the floating window
+				width = 140, -- Width of the floating window
+				height = 20, -- Height of the floating window
 				border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }, -- Border characters
 				opacity = nil, -- Opacity of the floating window (0-100)
 			})

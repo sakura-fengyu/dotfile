@@ -8,14 +8,36 @@ return {
 	-- 		vim.cmd("colorscheme dracula")
 	-- 	end,
 	-- },
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		vim.cmd("colorscheme tokyonight-night")
+	-- 	end,
+	-- },
+
 	{
-		"folke/tokyonight.nvim",
+		"catppuccin/nvim",
 		lazy = false,
 		priority = 1000,
-		opts = {},
 		config = function()
-			vim.cmd("colorscheme tokyonight-night")
-		end,
+			vim.cmd("colorscheme catppuccin")
+			require("catppuccin").setup({
+				flavour = "mocha", -- latte, frappe, macchiato, mocha
+				background = { light = "latte", dark = "mocha" },
+				transparent_background = false,
+				term_colors = true,
+				styles = {
+					comments = { "italic" },
+					functions = { "italic" },
+					keywords = { "italic" },
+					strings = { "italic" },
+					variables = {},
+				},
+			})
+		end
 	},
 
 	-- statusline 底部状态栏

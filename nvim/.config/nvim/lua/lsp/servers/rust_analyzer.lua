@@ -51,7 +51,7 @@ local function is_library(fname)
 	end
 end
 
-return {
+local rust_config = {
 	cmd = { 'rust-analyzer' },
 	filetypes = { 'rust' },
 	root_dir = function(bufnr, on_dir)
@@ -96,7 +96,7 @@ return {
 			else
 				vim.schedule(function()
 					vim.notify(('[rust_analyzer] cmd failed with code %d: %s\n%s'):format(output.code, cmd, output
-					.stderr))
+						.stderr))
 				end)
 			end
 		end)
@@ -117,4 +117,9 @@ return {
 			reload_workspace(bufnr)
 		end, { desc = 'Reload current cargo workspace' })
 	end,
+}
+
+return {
+	vim.lsp.config("rust_analyzer", rust_config),
+	vim.lsp.enable("rust_analyzer")
 }

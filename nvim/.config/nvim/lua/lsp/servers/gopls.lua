@@ -18,7 +18,7 @@ local function get_root(fname)
 	return vim.fs.root(fname, 'go.work') or vim.fs.root(fname, 'go.mod') or vim.fs.root(fname, '.git')
 end
 
-return {
+local gopls_config = {
 	cmd = { 'gopls' },
 	filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
 	root_dir = function(bufnr, on_dir)
@@ -42,4 +42,9 @@ return {
 			end
 		end)
 	end,
+}
+
+return {
+	vim.lsp.config("gopls", gopls_config),
+	vim.lsp.enable("gopls")
 }

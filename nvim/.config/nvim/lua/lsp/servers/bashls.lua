@@ -8,7 +8,7 @@
 --- ```
 ---
 --- Language server for bash, written using tree sitter in typescript.
-return {
+local bashls_config = {
 	cmd = { 'bash-language-server', 'start' },
 	settings = {
 		bashIde = {
@@ -24,4 +24,9 @@ return {
 	},
 	filetypes = { 'bash', 'sh' },
 	root_markers = { '.git' },
+}
+
+return {
+	vim.lsp.config("bashls", bashls_config),
+	vim.lsp.enable("bashls")
 }

@@ -1,9 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ','
 
-local mode_nv = { "n", "v" }
-local mode_v = { "v" }
-local mode_i = { "i" }
 local nmappings = {
 	-- { from = "W", to = ":w<CR>", desc = "保存" },
 	{ from = "Q", to = ":q<CR>", desc = "离开" },
