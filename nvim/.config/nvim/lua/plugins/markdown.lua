@@ -12,7 +12,7 @@ return {
 		build = "deno task --quiet build:fast",
 		config = function()
 			require("peek").setup({
-				app = { "Google Chrome", '--new-window' },
+				app = { "Microsoft Edge", '--new-window' },
 			})
 			vim.api.nvim_create_user_command("MarkdownPreview", require("peek").open, {})
 			vim.api.nvim_create_user_command("MarkDownPreviewClose", require("peek").close, {})
